@@ -33,11 +33,19 @@ export default defineConfig({
 
 ## 配置选项(options)
 
+### base
+
+iconfont 访问地址，默认 //at.alicdn.com/t/c/ 老版本可设置为 //at.alicdn.com/t/
+
+- **Type :** `string`
+- **Default :** '//at.alicdn.com/t/c/'
+- **Required :**`false`
+
+
 ### url
 
 TODO 直接加载下载到本地的iconfont文件夹，以便于在iconfont 瘫痪后兜底线上项目的打包流程
-
-iconfont 的唯一标识ID。
+iconfont 的唯一标识
 
 - **Type :** `string`
 - **Default :** ''
@@ -113,7 +121,7 @@ export default () => {
     plugins: [
       vue(),
       Iconfont({
-        base:'//at.alicdn.com/t/c/'
+        base:'//at.alicdn.com/t/c/',
         css:false,
         symbol:true,
         url: 'font_3303_22xx541xxxxxtlx8',
