@@ -15,11 +15,11 @@
   "scripts": {
     "prebuild": "rimraf dist/*",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "release": "pnpm build && release-it"
+    "release": "npm build && release-it"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eliduty/vite-plugin-iconfont.git"
+    "url": "git+https://github.com/nailfar/vite-plugin-iconfont-auto.git"
   },
   "files": [
     "dist"
@@ -31,9 +31,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eliduty/vite-plugin-iconfont/issues"
+    "url": "https://github.com/nailfar/vite-plugin-iconfont-auto/issues"
   },
-  "homepage": "https://github.com/eliduty/vite-plugin-iconfont#readme",
+  "homepage": "https://github.com/nailfar/vite-plugin-iconfont-auto#readme",
   "devDependencies": {
     "@types/node": "^18.11.18",
     "release-it": "^15.6.0",

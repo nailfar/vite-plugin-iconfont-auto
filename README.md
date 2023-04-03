@@ -1,10 +1,10 @@
 # ⚡vite-plugin-iconfont
 
-[![npm](https://img.shields.io/npm/v/vite-plugin-iconfont)](https://www.npmjs.com/package/vite-plugin-iconfont) [![npm](https://img.shields.io/npm/dt/vite-plugin-iconfont)](https://www.npmjs.com/package/vite-plugin-iconfont)
+[![npm](https://img.shields.io/npm/v/vite-plugin-iconfont-auto)](https://www.npmjs.com/package/vite-plugin-iconfont-auto) [![npm](https://img.shields.io/npm/dt/vite-plugin-iconfont-auto)](https://www.npmjs.com/package/vite-plugin-iconfont-auto)
 
-这是一个自动下载iconfont symbol js到项目的vite 插件，支持以下特性：
+这是一个自动下载iconfont symbol css font 到项目的vite 插件，支持以下特性：
 
-- 自动下载iconfont symbol js 到本地。
+- 自动下载iconfont symbol js css font 到本地。
 - 自动生成iconfont json配置。
 - 自动生成iconfont TypeScript类型声明文件。
 - 支持构建时自动注入index.html。
@@ -12,11 +12,11 @@
 ## 安装
 
 ```shell
-npm install -D vite-plugin-iconfont
+npm install -D vite-plugin-iconfont-auto
 // 或
-yarn add -D vite-plugin-iconfont
+yarn add -D vite-plugin-iconfont-auto
 // 或
-pnpm install -D vite-plugin-iconfont
+pnpm install -D vite-plugin-iconfont-auto
 ```
 
 ## 使用方法
@@ -25,9 +25,9 @@ pnpm install -D vite-plugin-iconfont
 
 ```js
 import { defineConfig } from 'vite';
-import Iconfont from 'vite-plugin-iconfont';
+import Iconfont from 'vite-plugin-iconfont-auto';
 export default defineConfig({
-  plugins: [Iconfont({ url: '//at.alicdn.com/t/c/font_3303_220hwi541tl8.js'})]
+  plugins: [Iconfont({ url: 'font_3303_220hwi541tl8'})]
 });
 ```
 
@@ -35,19 +35,36 @@ export default defineConfig({
 
 ### url
 
-iconfont使用symbol引用方式，生成的项目js地址，该参数为主要输入参数。
+TODO 直接加载下载到本地的iconfont文件夹，以便于在iconfont 瘫痪后兜底线上项目的打包流程
+
+iconfont 的唯一标识ID。
 
 - **Type :** `string`
 - **Default :** ''
 - **Required :**`true`
 
-### distUrl
+### css 
 
-保存iconfont到项目的js地址。
+是否开启css 引入方式，默认开启，如若只需要symbol 模式 可设为false 关闭
 
 - **Type :** `string`
-- **Default :** `iconfont.js`
+- **Default :** `true`
 - **Required :**`false`
+
+### symbol
+
+是否开启symbol 引入方式，默认开启，可关闭；
+
+- **Type :** `string`
+- **Default :** `true`
+- **Required :**`false`
+
+### distPath
+
+保存iconfont到项目相对目录地址。
+
+- **Type :** `string`
+- **Required :**`true`
 
 ### iconJson
 
@@ -89,15 +106,18 @@ iconfont symbol js是否自动注入到`index.html`文件。
 ```js
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import Iconfont from 'vite-plugin-iconfont';
+import Iconfont from 'vite-plugin-iconfont-auto';
 // https://vitejs.dev/config/
 export default () => {
   return defineConfig({
     plugins: [
       vue(),
       Iconfont({
-        url: '//at.alicdn.com/t/c/font_3303_220hwi541tl8.js',
-        distUrl: './public/assets/fonts/iconfont.js',
+        base:'//at.alicdn.com/t/c/'
+        css:false,
+        symbol:true,
+        url: 'font_3303_22xx541xxxxxtlx8',
+        distUrl: './public/assets/fonts/',
         iconJson: './public/iconfont.json',
         dts: './types/iconfont.d.ts',
         inject:false
