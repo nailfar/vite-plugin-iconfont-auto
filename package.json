@@ -1,7 +1,7 @@
 {
-  "name": "vite-plugin-iconfont",
-  "version": "1.0.7",
-  "description": "This plugin is for auto download iconfont symbol js file",
+  "name": "vite-plugin-iconfont-auto",
+  "version": "2.0.1",
+  "description": "This plugin is for auto download iconfont symbol js css and font file",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "type": "module",
@@ -15,7 +15,7 @@
   "scripts": {
     "prebuild": "rimraf dist/*",
     "build": "tsup src/index.ts --dts --format cjs,esm",
-    "release": "npm build && release-it"
+    "release": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "vite-plugin",
     "iconfont"
   ],
-  "author": "",
+  "author": "nailfar@qq.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nailfar/vite-plugin-iconfont-auto/issues"

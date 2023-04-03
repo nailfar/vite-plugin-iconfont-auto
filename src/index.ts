@@ -58,7 +58,7 @@ export default (options: Options): Plugin => {
       base: "//at.alicdn.com/t/c/",
       css: true, // 默认开启css
       symbol: true, // 默认开启symbol模式
-      distUrl: "iconfont.js",
+      distPath: "./public",
       inject: true,
       dts: false,
       iconJson: false,
@@ -81,15 +81,13 @@ export default (options: Options): Plugin => {
     async transformIndexHtml() {
       const injectArr: IndexHtmlTransformResult = [];
       const IS_DEV = config.mode === "development";
-      const isIdMode = !existsSync(opt.url);
-      console.info("加载模式", isIdMode, opt.url);
+      // const isIdMode = !existsSync(opt.url);
       const baseUrl = opt.base + opt.url;
       let symbolUrl = baseUrl + ".js";
       let cssUrl = baseUrl + ".css";
 
       const URL_CONTENT = await getURLContent(symbolUrl);
       const CSS_CONETNT = await getURLContent(cssUrl);
-      // console.info(CSS_CONETNT);
       const iconList = URL_CONTENT.match(/(?<=id=").+?(?=")/g) || [];
 
       // 生成下载图标配置
@@ -157,8 +155,6 @@ export default (options: Options): Plugin => {
             const ttfc = await getURLContent(baseUrl + "ttf");
             const svgc = await getURLContent(baseUrl + "svg");
 
-            console.info(cssUrl);
-
             const NEW_CSS_CONTENT = CSS_CONETNT.replaceAll(
               "//at.alicdn.com/t/c",
               "."
@@ -184,22 +180,6 @@ export default (options: Options): Plugin => {
     },
   };
 };
-
-async function injectHtml(config, opt: Options) {
-  const { outDir, assetsDir } = config.build;
-
-  const baseUrl = opt.base + opt.url;
-  let symbolUrl = baseUrl + ".js";
-  let cssUrl = baseUrl + ".css";
-
-  const URL_CONTENT = await getURLContent(symbolUrl);
-  const CSS_CONETNT = await getURLContent(cssUrl);
-
-  let url = join(config.base, assetsDir, opt.distPath || "")
-    .split("\\")
-    .join("/");
-  generateFile(`${outDir}/${url}`, URL_CONTENT);
-}
 
 /**
  * 获取地址，如果是相对协议地址自动添加https
@@ -250,7 +230,6 @@ async function writeFile(filePath: string, content = "") {
 let contentCACHE = {};
 async function getURLContent(url): Promise<string> {
   if (contentCACHE[url]) {
-    console.info("cache hit", url);
     return Promise.resolve(contentCACHE[url]);
   }
   const targetURL = getURL(url);
